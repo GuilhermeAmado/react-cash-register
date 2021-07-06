@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Input } from 'antd';
 import coinBackground from '../assets/images/coin.png';
 
-const Coin = ({ value, unity, disabled }) => {
+const Coin = ({ value, unity, disabled, quantity }) => {
+  const [coinQuantity, setCoinQuantity] = useState(null);
+
   return (
     <CoinContainer>
       <CoinStyles unity={unity}>
@@ -18,6 +20,8 @@ const Coin = ({ value, unity, disabled }) => {
         disabled={disabled}
         name={value + unity}
         id={value + unity}
+        value={quantity || coinQuantity}
+        onChange={(e) => setCoinQuantity(e.target.value)}
       />
     </CoinContainer>
   );
@@ -63,8 +67,12 @@ const StyledInput = styled(Input)`
   max-width: 75px;
   text-align: center;
 
+  font-size: 18px;
+  font-weight: bold;
+
   :disabled {
     cursor: default;
+    color: #000;
   }
 `;
 

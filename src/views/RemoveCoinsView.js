@@ -7,7 +7,7 @@ import { GlobalContext } from '../contexts/GlobalContext';
 import { mergeArray } from '../utils/mergeArray';
 const { Title } = Typography;
 
-const InsertCoinsView = () => {
+const RemoveCoinsView = () => {
   const {
     coinsToAddToStock,
     setCoinsToAddToStock,
@@ -27,7 +27,7 @@ const InsertCoinsView = () => {
     }
   }, [coinsToAddToStock]);
 
-  const handleInsertCoins = () => {
+  const handleRemoveCoins = () => {
     setstockTotalValue(
       (stockTotalValue) => stockTotalValue + insertedCoinsTotalValue
     );
@@ -38,10 +38,10 @@ const InsertCoinsView = () => {
 
   return (
     <>
-      <StyledTitle level={2}>Abastecer caixa com moedas</StyledTitle>
+      <StyledTitle level={2}>Retirar moedas do caixa</StyledTitle>
       <StyledTitle level={4}>Quantidade em caixa</StyledTitle>
 
-      <CoinList mode={'insert'} />
+      <CoinList mode={'remove'} />
 
       <StyledAlert
         message="Insira as quantidades nos campos acima"
@@ -60,9 +60,9 @@ const InsertCoinsView = () => {
         <Col span={8}>
           <Card>
             <Statistic
-              title="Valor abastecimento"
+              title="Valor retirada"
               value={currencyFormatter(insertedCoinsTotalValue)}
-              valueStyle={{ color: '#3f8600' }}
+              valueStyle={{ color: '#d31a14' }}
             />
           </Card>
         </Col>
@@ -80,8 +80,12 @@ const InsertCoinsView = () => {
       </Row>
 
       <ButtonContainer>
-        <StyledButton size="large" onClick={() => handleInsertCoins()}>
-          Abastecer
+        <StyledButton
+          disabled={insertedCoinsTotalValue + stockTotalValue < 0}
+          size="large"
+          onClick={() => handleRemoveCoins()}
+        >
+          Retirar moedas
         </StyledButton>
       </ButtonContainer>
     </>
@@ -108,4 +112,4 @@ const StyledButton = styled(Button)`
   font-weight: bold;
 `;
 
-export default InsertCoinsView;
+export default RemoveCoinsView;

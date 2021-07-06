@@ -3,13 +3,19 @@ import React, { useState, createContext } from 'react';
 export const GlobalContext = createContext();
 
 export const GlobalContextProvider = (props) => {
-  const [stockCoins, setStockCoins] = useState([]);
+  const [coinsToAddToStock, setCoinsToAddToStock] = useState([]);
+  const [coinsInStock, setCoinsInStock] = useState([]);
+  const [stockTotalValue, setstockTotalValue] = useState(0);
 
   return (
     <GlobalContext.Provider
       value={{
-        stockCoins,
-        setStockCoins,
+        coinsToAddToStock,
+        setCoinsToAddToStock,
+        stockTotalValue,
+        setstockTotalValue,
+        coinsInStock,
+        setCoinsInStock,
       }}
     >
       {props.children}

@@ -5,6 +5,7 @@ import GenerateChangeView from './views/GenerateChangeView';
 import { GenerateChangeContextProvider } from './contexts/GenerateChangeContext';
 import { GlobalContextProvider } from './contexts/GlobalContext';
 import InsertCoinsView from './views/InsertCoinsView';
+import RemoveCoinsView from './views/RemoveCoinsView';
 
 const { TabPane } = Tabs;
 
@@ -27,7 +28,7 @@ function App() {
               <InsertCoinsView />
             </TabPane>
             <TabPane tab="Sangria" key="3">
-              <CoinList />
+              <RemoveCoinsView />
             </TabPane>
           </Tabs>
         </StyledCard>

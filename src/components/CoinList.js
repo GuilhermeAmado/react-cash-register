@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import Coin from './Coin';
 
-const CoinList = ({ disabled, coinsQuantityComposition }) => {
+const CoinList = ({ mode, disabled, coinsQuantityComposition }) => {
   return (
     <CoinListContainer>
       <Coin
         disabled={disabled}
+        mode={mode}
         value={100}
         unity={'Real'}
         compositionQuantity={coinsQuantityComposition?.umReal}
@@ -14,6 +15,7 @@ const CoinList = ({ disabled, coinsQuantityComposition }) => {
       />
       <Coin
         disabled={disabled}
+        mode={mode}
         value={50}
         unity={'Centavos'}
         compositionQuantity={coinsQuantityComposition?.cinquentaCentavos}
@@ -21,6 +23,7 @@ const CoinList = ({ disabled, coinsQuantityComposition }) => {
       />
       <Coin
         disabled={disabled}
+        mode={mode}
         value={25}
         unity={'Centavos'}
         compositionQuantity={coinsQuantityComposition?.vinteCincoCentavos}
@@ -28,6 +31,7 @@ const CoinList = ({ disabled, coinsQuantityComposition }) => {
       />
       <Coin
         disabled={disabled}
+        mode={mode}
         value={10}
         unity={'Centavos'}
         compositionQuantity={coinsQuantityComposition?.dezCentavos}
@@ -35,6 +39,7 @@ const CoinList = ({ disabled, coinsQuantityComposition }) => {
       />
       <Coin
         disabled={disabled}
+        mode={mode}
         value={5}
         unity={'Centavos'}
         compositionQuantity={coinsQuantityComposition?.cincoCentavos}
@@ -42,6 +47,7 @@ const CoinList = ({ disabled, coinsQuantityComposition }) => {
       />
       <Coin
         disabled={disabled}
+        mode={mode}
         value={1}
         unity={'Centavo'}
         compositionQuantity={coinsQuantityComposition?.umCentavo}

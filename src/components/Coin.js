@@ -1,25 +1,32 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { Input } from 'antd';
 import coinBackground from '../assets/images/coin.png';
 import { GlobalContext } from '../contexts/GlobalContext';
 
-const Coin = ({ value, unity, disabled, compositionQuantity, name }) => {
-  const { stockCoins, setStockCoins } = useContext(GlobalContext);
+const Coin = ({ mode, value, unity, disabled, compositionQuantity, name }) => {
+  const { coinsToAddToStock, setCoinsToAddToStock, coinsInStock } =
+    useContext(GlobalContext);
 
   const [displayValue, setDisplayValue] = useState('');
+
+  useEffect(() => {
+    if (coinsToAddToStock.length === 0) {
+      setDisplayValue('');
+    }
+  }, [coinsToAddToStock]);
 
   return (
     <CoinContainer>
       <CoinStockInput
         disabled
-        name={'stock' + value + unity}
-        id={'stock' + value + unity}
-        value={0}
+        name={'stock' + mode + value + unity}
+        id={'stock' + mode + value + unity}
+        value={coinsInStock.find((coin) => coin.name === name)?.quantity || 0}
       />
 
       <CoinStyles unity={unity}>
-        <label htmlFor={value + unity}>
+        <label htmlFor={mode + value + unity}>
           <div className="value-container">
             <strong>{value === 100 ? 1 : value}</strong>
             <small>{unity}</small>
@@ -28,13 +35,20 @@ const Coin = ({ value, unity, disabled, compositionQuantity, name }) => {
       </CoinStyles>
       <StyledInput
         disabled={disabled}
-        name={value + unity}
-        id={value + unity}
+        name={mode + value + unity}
+        id={mode + value + unity}
         value={compositionQuantity || displayValue}
         onChange={(e) => {
-          setStockCoins([
-            ...stockCoins.filter((coin) => coin.name !== name),
-            { name: name, value: value, quantity: Number(e.target.value) },
+          setCoinsToAddToStock([
+            ...coinsToAddToStock.filter((coin) => coin.name !== name),
+            {
+              name: name,
+              value: value,
+              quantity:
+                mode === 'remove'
+                  ? -Math.abs(Number(e.target.value))
+                  : Number(e.target.value),
+            },
           ]);
           setDisplayValue(e.target.value);
         }}

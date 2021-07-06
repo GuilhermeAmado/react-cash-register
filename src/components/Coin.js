@@ -1,17 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Input } from 'antd';
 import coinBackground from '../assets/images/coin.png';
 
 const Coin = ({ value, unity }) => {
   return (
-    <CoinStyles unity={unity}>
-      <div className="value-container">
-        <strong>{value}</strong>
-        <small>{unity}</small>
-      </div>
-    </CoinStyles>
+    <CoinContainer>
+      <CoinStyles unity={unity}>
+        <div className="value-container">
+          <strong>{value}</strong>
+          <small>{unity}</small>
+        </div>
+      </CoinStyles>
+      <StyledInput />
+    </CoinContainer>
   );
 };
+
+const CoinContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const CoinStyles = styled.div`
   width: 100px;
@@ -39,6 +49,11 @@ const CoinStyles = styled.div`
         props.unity.toLowerCase() === 'real' ? '36px' : '24px'};
     }
   }
+`;
+
+const StyledInput = styled(Input)`
+  max-width: 75px;
+  text-align: center;
 `;
 
 export default Coin;

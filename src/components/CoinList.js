@@ -3,46 +3,44 @@ import styled from 'styled-components';
 import Coin from './Coin';
 import { GenerateChangeContext } from '../contexts/GenerateChangeContext';
 
-const CoinList = ({ disabled }) => {
-  const { coinsQuantityComposition } = useContext(GenerateChangeContext);
-  console.log(coinsQuantityComposition);
+const CoinList = ({ disabled, coinsQuantityComposition }) => {
   return (
     <CoinListContainer>
       <Coin
         value={1}
         unity={'Real'}
         disabled={disabled}
-        quantity={coinsQuantityComposition.umReal}
+        quantity={coinsQuantityComposition?.umReal}
       />
       <Coin
         value={50}
         unity={'Centavos'}
         disabled={disabled}
-        quantity={coinsQuantityComposition.cinquentaCentavos}
+        quantity={coinsQuantityComposition?.cinquentaCentavos}
       />
       <Coin
         value={25}
         unity={'Centavos'}
         disabled={disabled}
-        quantity={coinsQuantityComposition.vinteCincoCentavos}
+        quantity={coinsQuantityComposition?.vinteCincoCentavos}
       />
       <Coin
         value={10}
         unity={'Centavos'}
         disabled={disabled}
-        quantity={coinsQuantityComposition.dezCentavos}
+        quantity={coinsQuantityComposition?.dezCentavos}
       />
       <Coin
         value={5}
         unity={'Centavos'}
         disabled={disabled}
-        quantity={coinsQuantityComposition.cincoCentavos}
+        quantity={coinsQuantityComposition?.cincoCentavos}
       />
       <Coin
         value={1}
         unity={'Centavo'}
         disabled={disabled}
-        quantity={coinsQuantityComposition.umCentavo}
+        quantity={coinsQuantityComposition?.umCentavo}
       />
     </CoinListContainer>
   );

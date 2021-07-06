@@ -4,7 +4,7 @@ import { Input } from 'antd';
 import coinBackground from '../assets/images/coin.png';
 
 const Coin = ({ value, unity, disabled, quantity }) => {
-  const [coinQuantity, setCoinQuantity] = useState(null);
+  const [coinQuantityInput, setCoinQuantityInput] = useState(null);
 
   return (
     <CoinContainer>
@@ -20,8 +20,8 @@ const Coin = ({ value, unity, disabled, quantity }) => {
         disabled={disabled}
         name={value + unity}
         id={value + unity}
-        value={quantity || coinQuantity}
-        onChange={(e) => setCoinQuantity(e.target.value)}
+        value={quantity || coinQuantityInput}
+        onChange={(e) => setCoinQuantityInput(e.target.value)}
       />
     </CoinContainer>
   );

@@ -1,16 +1,18 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import React, { useContext } from 'react';
 import { Modal } from 'antd';
-import CoinList from './CoinList';
 import styled from 'styled-components';
 import { GenerateChangeContext } from '../contexts/GenerateChangeContext';
 import { currencyFormatter } from '../utils/currencyFormater';
+import CoinsComposition from './CoinsComposition';
 
 const ChangeCompositionModal = ({ isModalVisible, setIsModalVisible }) => {
-  const { totalChangeValue, setTotalChangeValue } = useContext(
-    GenerateChangeContext
-  );
+  const { totalChangeValue, setTotalChangeValue, setPriceToPay, setPricePaid } =
+    useContext(GenerateChangeContext);
 
   const handleOk = () => {
+    setTotalChangeValue(0.0);
+    setPriceToPay(0.0);
+    setPricePaid(0.0);
     setIsModalVisible(false);
   };
 
@@ -25,7 +27,7 @@ const ChangeCompositionModal = ({ isModalVisible, setIsModalVisible }) => {
       closable={false}
       destroyOnClose={true}
     >
-      <CoinList disabled />
+      <CoinsComposition />
 
       <TotalDisplay>
         <span>Troco Total:</span>

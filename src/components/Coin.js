@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Input } from 'antd';
 import coinBackground from '../assets/images/coin.png';
+import { GlobalContext } from '../contexts/GlobalContext';
 
-const Coin = ({ value, unity, disabled, quantity }) => {
-  const [coinQuantityInput, setCoinQuantityInput] = useState(null);
+const Coin = ({ value, unity, disabled, compositionQuantity, name }) => {
+  const { stockCoins, setStockCoins } = useContext(GlobalContext);
+
+  const [displayValue, setDisplayValue] = useState('');
 
   return (
     <CoinContainer>
@@ -18,7 +21,7 @@ const Coin = ({ value, unity, disabled, quantity }) => {
       <CoinStyles unity={unity}>
         <label htmlFor={value + unity}>
           <div className="value-container">
-            <strong>{value}</strong>
+            <strong>{value === 100 ? 1 : value}</strong>
             <small>{unity}</small>
           </div>
         </label>
@@ -27,8 +30,14 @@ const Coin = ({ value, unity, disabled, quantity }) => {
         disabled={disabled}
         name={value + unity}
         id={value + unity}
-        value={quantity || coinQuantityInput}
-        onChange={(e) => setCoinQuantityInput(e.target.value)}
+        value={compositionQuantity || displayValue}
+        onChange={(e) => {
+          setStockCoins([
+            ...stockCoins.filter((coin) => coin.name !== name),
+            { name: name, value: value, quantity: Number(e.target.value) },
+          ]);
+          setDisplayValue(e.target.value);
+        }}
       />
     </CoinContainer>
   );

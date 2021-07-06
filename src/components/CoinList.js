@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Coin from './Coin';
 
@@ -6,40 +6,46 @@ const CoinList = ({ disabled, coinsQuantityComposition }) => {
   return (
     <CoinListContainer>
       <Coin
-        value={1}
-        unity={'Real'}
         disabled={disabled}
-        quantity={coinsQuantityComposition?.umReal}
+        value={100}
+        unity={'Real'}
+        compositionQuantity={coinsQuantityComposition?.umReal}
+        name={'umReal'}
       />
       <Coin
+        disabled={disabled}
         value={50}
         unity={'Centavos'}
-        disabled={disabled}
-        quantity={coinsQuantityComposition?.cinquentaCentavos}
+        compositionQuantity={coinsQuantityComposition?.cinquentaCentavos}
+        name={'cinquentaCentavos'}
       />
       <Coin
+        disabled={disabled}
         value={25}
         unity={'Centavos'}
-        disabled={disabled}
-        quantity={coinsQuantityComposition?.vinteCincoCentavos}
+        compositionQuantity={coinsQuantityComposition?.vinteCincoCentavos}
+        name={'vinteCincoCentavos'}
       />
       <Coin
+        disabled={disabled}
         value={10}
         unity={'Centavos'}
-        disabled={disabled}
-        quantity={coinsQuantityComposition?.dezCentavos}
+        compositionQuantity={coinsQuantityComposition?.dezCentavos}
+        name={'dezCentavos'}
       />
       <Coin
+        disabled={disabled}
         value={5}
         unity={'Centavos'}
-        disabled={disabled}
-        quantity={coinsQuantityComposition?.cincoCentavos}
+        compositionQuantity={coinsQuantityComposition?.cincoCentavos}
+        name={'cincoCentavos'}
       />
       <Coin
+        disabled={disabled}
         value={1}
         unity={'Centavo'}
-        disabled={disabled}
-        quantity={coinsQuantityComposition?.umCentavo}
+        compositionQuantity={coinsQuantityComposition?.umCentavo}
+        name={'umCentavo'}
       />
     </CoinListContainer>
   );

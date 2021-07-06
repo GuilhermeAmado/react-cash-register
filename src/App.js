@@ -3,6 +3,7 @@ import { Tabs, Card } from 'antd';
 import CoinList from './components/CoinList';
 import GenerateChangeView from './views/GenerateChangeView';
 import { GenerateChangeContextProvider } from './contexts/GenerateChangeContext';
+import { GlobalContextProvider } from './contexts/GlobalContext';
 import InsertCoinsView from './views/InsertCoinsView';
 
 const { TabPane } = Tabs;
@@ -13,23 +14,25 @@ function callback(key) {
 
 function App() {
   return (
-    <Wrapper>
-      <StyledCard>
-        <Tabs defaultActiveKey="1" onChange={callback}>
-          <TabPane tab="Gerar troco" key="1">
-            <GenerateChangeContextProvider>
-              <GenerateChangeView />
-            </GenerateChangeContextProvider>
-          </TabPane>
-          <TabPane tab="Abastecimento" key="2">
-            <InsertCoinsView />
-          </TabPane>
-          <TabPane tab="Sangria" key="3">
-            <CoinList />
-          </TabPane>
-        </Tabs>
-      </StyledCard>
-    </Wrapper>
+    <GlobalContextProvider>
+      <Wrapper>
+        <StyledCard>
+          <Tabs defaultActiveKey="1" onChange={callback}>
+            <TabPane tab="Gerar troco" key="1">
+              <GenerateChangeContextProvider>
+                <GenerateChangeView />
+              </GenerateChangeContextProvider>
+            </TabPane>
+            <TabPane tab="Abastecimento" key="2">
+              <InsertCoinsView />
+            </TabPane>
+            <TabPane tab="Sangria" key="3">
+              <CoinList />
+            </TabPane>
+          </Tabs>
+        </StyledCard>
+      </Wrapper>
+    </GlobalContextProvider>
   );
 }
 

@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Alert, Button, Card, Col, Row, Statistic, Typography } from 'antd';
 import styled from 'styled-components';
 import CoinList from '../components/CoinList';
 import { currencyFormatter } from '../utils/currencyFormater';
+import { GlobalContext } from '../contexts/GlobalContext';
 const { Title } = Typography;
 
 const InsertCoinsView = () => {
+  const { stockCoins } = useContext(GlobalContext);
+  const [insertedCoinsTotalValue, setInsertedCoinsTotalValue] = useState('');
+
+  useEffect(() => {
+    if (stockCoins.length > 0) {
+      const totalPrice = stockCoins.reduce((accumulator, coin) => {
+        return accumulator + coin.value * coin.quantity;
+      }, 0);
+      setInsertedCoinsTotalValue(totalPrice / 100);
+    }
+  }, [stockCoins]);
+
   return (
     <>
       <StyledTitle level={2}>Abastecer caixa com moedas</StyledTitle>
       <StyledTitle level={4}>Quantidade em caixa</StyledTitle>
 
       <CoinList />
+
       <StyledAlert
         message="Insira as quantidades nos campos acima"
         type="info"
@@ -30,7 +44,7 @@ const InsertCoinsView = () => {
           <Card>
             <Statistic
               title="Valor abastecimento"
-              value={currencyFormatter(22.56)}
+              value={currencyFormatter(insertedCoinsTotalValue)}
               valueStyle={{ color: '#3f8600' }}
             />
           </Card>
@@ -47,7 +61,9 @@ const InsertCoinsView = () => {
       </Row>
 
       <ButtonContainer>
-        <StyledButton size="large">Abastecer</StyledButton>
+        <StyledButton size="large" onClick={() => console.log('')}>
+          Abastecer
+        </StyledButton>
       </ButtonContainer>
     </>
   );

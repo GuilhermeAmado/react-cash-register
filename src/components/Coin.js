@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Input } from 'antd';
 import coinBackground from '../assets/images/coin.png';
 
-const Coin = ({ value, unity }) => {
+const Coin = ({ value, unity, disabled }) => {
   return (
     <CoinContainer>
       <CoinStyles unity={unity}>
@@ -14,7 +14,11 @@ const Coin = ({ value, unity }) => {
           </div>
         </label>
       </CoinStyles>
-      <StyledInput name={value + unity} id={value + unity} />
+      <StyledInput
+        disabled={disabled}
+        name={value + unity}
+        id={value + unity}
+      />
     </CoinContainer>
   );
 };
@@ -58,6 +62,10 @@ const CoinStyles = styled.div`
 const StyledInput = styled(Input)`
   max-width: 75px;
   text-align: center;
+
+  :disabled {
+    cursor: default;
+  }
 `;
 
 export default Coin;

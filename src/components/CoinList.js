@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import Coin from './Coin';
 
-const CoinList = () => {
+const CoinList = ({ disabled }) => {
   return (
     <CoinListContainer>
-      <Coin value={1} unity={'Real'} />
-      <Coin value={50} unity={'Centavos'} />
-      <Coin value={25} unity={'Centavos'} />
-      <Coin value={10} unity={'Centavos'} />
-      <Coin value={5} unity={'Centavos'} />
-      <Coin value={1} unity={'Centavo'} />
+      <Coin value={1} unity={'Real'} disabled={disabled} />
+      <Coin value={50} unity={'Centavos'} disabled={disabled} />
+      <Coin value={25} unity={'Centavos'} disabled={disabled} />
+      <Coin value={10} unity={'Centavos'} disabled={disabled} />
+      <Coin value={5} unity={'Centavos'} disabled={disabled} />
+      <Coin value={1} unity={'Centavo'} disabled={disabled} />
     </CoinListContainer>
   );
 };

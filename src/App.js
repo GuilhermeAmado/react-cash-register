@@ -3,6 +3,7 @@ import { Tabs, Card } from 'antd';
 import CoinList from './components/CoinList';
 import GenerateChangeView from './views/GenerateChangeView';
 import { GenerateChangeContextProvider } from './contexts/GenerateChangeContext';
+import InsertCoinsView from './views/InsertCoinsView';
 
 const { TabPane } = Tabs;
 
@@ -21,7 +22,7 @@ function App() {
             </GenerateChangeContextProvider>
           </TabPane>
           <TabPane tab="Abastecimento" key="2">
-            <CoinList />
+            <InsertCoinsView />
           </TabPane>
           <TabPane tab="Sangria" key="3">
             <CoinList />
@@ -36,11 +37,12 @@ const Wrapper = styled.div`
   height: 100vh;
   background-color: #f9f9f9;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 `;
 
 const StyledCard = styled(Card)`
+  margin-top: 200px;
   width: 700px;
   min-height: 370px;
   box-shadow: rgb(0 0 0 / 8%) 0px 4px 16px 0px, rgb(0 0 0 / 6%) 0px 2px 4px 0px;

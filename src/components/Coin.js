@@ -8,6 +8,13 @@ const Coin = ({ value, unity, disabled, quantity }) => {
 
   return (
     <CoinContainer>
+      <CoinStockInput
+        disabled
+        name={'stock' + value + unity}
+        id={'stock' + value + unity}
+        value={0}
+      />
+
       <CoinStyles unity={unity}>
         <label htmlFor={value + unity}>
           <div className="value-container">
@@ -26,6 +33,15 @@ const Coin = ({ value, unity, disabled, quantity }) => {
     </CoinContainer>
   );
 };
+
+const CoinStockInput = styled(Input)`
+  max-width: 75px;
+  text-align: center;
+
+  :disabled {
+    cursor: default;
+  }
+`;
 
 const CoinContainer = styled.div`
   display: flex;
@@ -50,7 +66,14 @@ const CoinStyles = styled.div`
 
   color: #555;
 
+  label {
+    cursor: pointer;
+    padding: 10px;
+  }
+
   .value-container {
+    width: 50px;
+    height: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;

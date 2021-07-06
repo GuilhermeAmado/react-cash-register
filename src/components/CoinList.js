@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Coin from './Coin';
-import { GenerateChangeContext } from '../contexts/GenerateChangeContext';
 
 const CoinList = ({ disabled, coinsQuantityComposition }) => {
   return (

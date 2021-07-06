@@ -7,12 +7,14 @@ const Coin = ({ value, unity }) => {
   return (
     <CoinContainer>
       <CoinStyles unity={unity}>
-        <div className="value-container">
-          <strong>{value}</strong>
-          <small>{unity}</small>
-        </div>
+        <label htmlFor={value + unity}>
+          <div className="value-container">
+            <strong>{value}</strong>
+            <small>{unity}</small>
+          </div>
+        </label>
       </CoinStyles>
-      <StyledInput />
+      <StyledInput name={value + unity} id={value + unity} />
     </CoinContainer>
   );
 };
@@ -31,6 +33,8 @@ const CoinStyles = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+
+  user-select: none;
 
   display: flex;
   align-items: center;

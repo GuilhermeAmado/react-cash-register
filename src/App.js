@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Tabs, Card, Typography } from 'antd';
+import { Tabs, Card } from 'antd';
 import CoinList from './components/CoinList';
+import GenerateChangeView from './views/GenerateChangeView';
 const { TabPane } = Tabs;
-const { Title } = Typography;
 
 function callback(key) {
   console.log(key);
@@ -14,8 +14,7 @@ function App() {
       <StyledCard>
         <Tabs defaultActiveKey="1" onChange={callback}>
           <TabPane tab="Gerar troco" key="1">
-            <Title level={2}>Gerar troco em moedas</Title>
-            <CoinList />
+            <GenerateChangeView />
           </TabPane>
           <TabPane tab="Abastecimento" key="2">
             <CoinList />
@@ -39,7 +38,7 @@ const Wrapper = styled.div`
 
 const StyledCard = styled(Card)`
   width: 700px;
-  min-height: 400px;
+  min-height: 500px;
   box-shadow: rgb(0 0 0 / 8%) 0px 4px 16px 0px, rgb(0 0 0 / 6%) 0px 2px 4px 0px;
 `;
 

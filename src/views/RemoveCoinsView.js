@@ -23,7 +23,6 @@ const RemoveCoinsView = () => {
     coinsInStock,
     setCoinsInStock,
     stockTotalValue,
-    setstockTotalValue,
   } = useContext(GlobalContext);
   const [insertedCoinsTotalValue, setInsertedCoinsTotalValue] = useState(0);
 

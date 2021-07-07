@@ -1,6 +1,6 @@
 export const mergeArray = (first, second) => {
   return [...first, ...second].reduce((acc, val, i, arr) => {
-    const { name, quantity } = val;
+    const { name, quantity, value } = val;
     const ind = acc.findIndex((el) => el.name === name);
     if (ind !== -1) {
       acc[ind].quantity += quantity;
@@ -8,6 +8,7 @@ export const mergeArray = (first, second) => {
       acc.push({
         name,
         quantity,
+        value,
       });
     }
     return acc;

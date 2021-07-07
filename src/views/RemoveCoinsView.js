@@ -1,5 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Alert, Button, Card, Col, Row, Statistic, Typography } from 'antd';
+import {
+  Alert,
+  Button,
+  Card,
+  Col,
+  Row,
+  Statistic,
+  Typography,
+  message,
+} from 'antd';
 import styled from 'styled-components';
 import CoinList from '../components/CoinList';
 import { currencyFormatter } from '../utils/currencyFormater';
@@ -16,7 +25,7 @@ const RemoveCoinsView = () => {
     stockTotalValue,
     setstockTotalValue,
   } = useContext(GlobalContext);
-  const [insertedCoinsTotalValue, setInsertedCoinsTotalValue] = useState('');
+  const [insertedCoinsTotalValue, setInsertedCoinsTotalValue] = useState(0);
 
   useEffect(() => {
     if (coinsToAddToStock.length > 0) {
@@ -28,10 +37,14 @@ const RemoveCoinsView = () => {
   }, [coinsToAddToStock]);
 
   const handleRemoveCoins = () => {
-    setstockTotalValue(
-      (stockTotalValue) => stockTotalValue + insertedCoinsTotalValue
-    );
-    setCoinsInStock(mergeArray(coinsInStock, coinsToAddToStock));
+    const currentCoinStock = mergeArray(coinsInStock, coinsToAddToStock);
+
+    if (currentCoinStock.some((coin) => coin.quantity < 0)) {
+      message.error('Não há moedas suficientes para essa operação!');
+      return;
+    }
+
+    setCoinsInStock(currentCoinStock);
     setCoinsToAddToStock([]);
     setInsertedCoinsTotalValue('');
   };
@@ -53,7 +66,11 @@ const RemoveCoinsView = () => {
           <Card>
             <Statistic
               title="Valor atual em caixa"
-              value={currencyFormatter(stockTotalValue)}
+              value={currencyFormatter(
+                coinsInStock.reduce((accumulator, coin) => {
+                  return accumulator + coin.value * coin.quantity;
+                }, 0) / 100
+              )}
             />
           </Card>
         </Col>
@@ -61,7 +78,11 @@ const RemoveCoinsView = () => {
           <Card>
             <Statistic
               title="Valor retirada"
-              value={currencyFormatter(insertedCoinsTotalValue)}
+              value={currencyFormatter(
+                coinsToAddToStock.reduce((accumulator, coin) => {
+                  return accumulator + coin.value * coin.quantity;
+                }, 0) / 100
+              )}
               valueStyle={{ color: '#d31a14' }}
             />
           </Card>
@@ -70,9 +91,10 @@ const RemoveCoinsView = () => {
           <Card>
             <Statistic
               title="Valor caixa futuro"
-              value={currencyFormatter(
-                stockTotalValue + insertedCoinsTotalValue
-              )}
+              value={
+                currencyFormatter(stockTotalValue + insertedCoinsTotalValue) ||
+                0
+              }
               valueStyle={{ color: '#003686' }}
             />
           </Card>
@@ -81,7 +103,7 @@ const RemoveCoinsView = () => {
 
       <ButtonContainer>
         <StyledButton
-          disabled={insertedCoinsTotalValue + stockTotalValue < 0}
+          // disabled={insertedCoinsTotalValue + stockTotalValue < 0}
           size="large"
           onClick={() => handleRemoveCoins()}
         >

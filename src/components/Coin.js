@@ -10,6 +10,10 @@ const Coin = ({ mode, value, unity, disabled, compositionQuantity, name }) => {
 
   const [displayValue, setDisplayValue] = useState('');
 
+  const currentCoinStock = coinsInStock.find(
+    (coin) => coin.name === name
+  )?.quantity;
+
   useEffect(() => {
     if (coinsToAddToStock.length === 0) {
       setDisplayValue('');
@@ -22,7 +26,9 @@ const Coin = ({ mode, value, unity, disabled, compositionQuantity, name }) => {
         disabled
         name={'stock' + mode + value + unity}
         id={'stock' + mode + value + unity}
-        value={coinsInStock.find((coin) => coin.name === name)?.quantity || 0}
+        value={currentCoinStock || 0}
+        mode={mode}
+        amount={displayValue}
       />
 
       <CoinStyles unity={unity}>
@@ -46,7 +52,7 @@ const Coin = ({ mode, value, unity, disabled, compositionQuantity, name }) => {
               value: value,
               quantity:
                 mode === 'remove'
-                  ? -Math.abs(Number(e.target.value))
+                  ? -Number(e.target.value)
                   : Number(e.target.value),
             },
           ]);
@@ -63,6 +69,12 @@ const CoinStockInput = styled(Input)`
 
   :disabled {
     cursor: default;
+    background-color: ${(props) =>
+      props.value >= props.amount
+        ? 'inherit'
+        : props.mode === 'remove'
+        ? 'rgba(255, 0, 0, 0.4)'
+        : 'inherit'};
   }
 `;
 

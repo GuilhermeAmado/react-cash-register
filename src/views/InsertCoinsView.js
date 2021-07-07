@@ -16,24 +16,21 @@ const InsertCoinsView = () => {
     stockTotalValue,
     setstockTotalValue,
   } = useContext(GlobalContext);
-  const [insertedCoinsTotalValue, setInsertedCoinsTotalValue] = useState('');
+  const [coinsToRemoveTotalValue, setCoinsToRemoveTotalValue] = useState(0);
 
   useEffect(() => {
     if (coinsToAddToStock.length > 0) {
       const totalPrice = coinsToAddToStock.reduce((accumulator, coin) => {
         return accumulator + coin.value * coin.quantity;
       }, 0);
-      setInsertedCoinsTotalValue(totalPrice / 100);
+      setCoinsToRemoveTotalValue(totalPrice / 100);
     }
   }, [coinsToAddToStock]);
 
   const handleInsertCoins = () => {
-    setstockTotalValue(
-      (stockTotalValue) => stockTotalValue + insertedCoinsTotalValue
-    );
     setCoinsInStock(mergeArray(coinsInStock, coinsToAddToStock));
     setCoinsToAddToStock([]);
-    setInsertedCoinsTotalValue('');
+    setCoinsToRemoveTotalValue('');
   };
 
   return (
@@ -53,7 +50,11 @@ const InsertCoinsView = () => {
           <Card>
             <Statistic
               title="Valor atual em caixa"
-              value={currencyFormatter(stockTotalValue)}
+              value={currencyFormatter(
+                coinsInStock.reduce((accumulator, coin) => {
+                  return accumulator + coin.value * coin.quantity;
+                }, 0) / 100
+              )}
             />
           </Card>
         </Col>
@@ -61,7 +62,11 @@ const InsertCoinsView = () => {
           <Card>
             <Statistic
               title="Valor abastecimento"
-              value={currencyFormatter(insertedCoinsTotalValue)}
+              value={currencyFormatter(
+                coinsToAddToStock.reduce((accumulator, coin) => {
+                  return accumulator + coin.value * coin.quantity;
+                }, 0) / 100
+              )}
               valueStyle={{ color: '#3f8600' }}
             />
           </Card>
@@ -71,7 +76,7 @@ const InsertCoinsView = () => {
             <Statistic
               title="Valor caixa futuro"
               value={currencyFormatter(
-                stockTotalValue + insertedCoinsTotalValue
+                stockTotalValue + coinsToRemoveTotalValue
               )}
               valueStyle={{ color: '#003686' }}
             />
